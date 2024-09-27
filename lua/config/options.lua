@@ -10,3 +10,6 @@ LazyVim.terminal.setup("pwsh")
 
 -- Keeps text cursor 16 lines away from the top or bottom of the screen at all times
 vim.opt.scrolloff = 16
+
+-- Setup GUI Font for Neovide (or any GUI editor using neovim for that matter)
+vim.o.guifont = "JetBrainsMono Nerd Font Mono:h14"
