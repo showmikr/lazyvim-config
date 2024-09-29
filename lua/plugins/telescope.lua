@@ -5,6 +5,10 @@ return {
       file_ignore_patterns = vim.list_extend(opts.defaults.file_ignore_patterns or {}, {
         "%.git/",
         "%.jj/", -- ignore jj (jujutsu) directory
+        "%node_modules/",
+        "%.cache",
+        "build",
+        "dist",
       }),
     })
     return opts
