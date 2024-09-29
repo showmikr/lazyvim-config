@@ -1,6 +1,7 @@
 {
   "extras": [
     "lazyvim.plugins.extras.coding.mini-surround",
+    "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.vscode"
   ],
   "news": {
