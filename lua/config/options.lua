@@ -2,11 +2,15 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
--- Optionally setup the terminal to use
--- This sets `vim.o.shell` and does some additional configuration for:
--- * pwsh
--- * powershell
-LazyVim.terminal.setup("pwsh")
+-- Setup the terminal to use powershell if on Windows
+local maybe_use_powershell = function()
+  local os = vim.uv.os_uname().sysname
+  if os == "Windows_NT" then
+    LazyVim.terminal.setup("pwsh")
+  end
+end
+
+maybe_use_powershell()
 
 -- force all new files created in vim to have unix style newlines "\n"
 vim.opt.fileformat = "unix"
