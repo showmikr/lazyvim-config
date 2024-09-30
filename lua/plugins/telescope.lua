@@ -4,6 +4,13 @@ local is_cwd_git_repo = nil
 
 return {
   "nvim-telescope/telescope.nvim",
+  opts = {
+    pickers = {
+      git_files = {
+        show_untracked = true,
+      },
+    },
+  },
   keys = {
     {
       "<leader><space>",
