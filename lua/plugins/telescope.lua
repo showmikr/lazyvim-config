@@ -1,16 +1,31 @@
+-- We cache the results of "git rev-parse"
+-- Process creation is expensive in Windows, so this reduces latency
+local is_cwd_git_repo = nil
+
 return {
   "nvim-telescope/telescope.nvim",
-  opts = function(_, opts)
-    opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-      file_ignore_patterns = vim.list_extend(opts.defaults.file_ignore_patterns or {}, {
-        "%.git/",
-        "%.jj/", -- ignore jj (jujutsu) directory
-        "%node_modules/",
-        "%.cache",
-        "build",
-        "dist",
-      }),
-    })
-    return opts
-  end,
+  keys = {
+    {
+      "<leader><space>",
+      function()
+        local utils = require("telescope.utils")
+
+        local function is_git_repo()
+          local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
+          return ret == 0
+        end
+
+        if is_cwd_git_repo == nil then
+          is_cwd_git_repo = is_git_repo()
+        end
+
+        if is_cwd_git_repo then
+          vim.cmd([[Telescope git_files]])
+        else
+          vim.cmd([[Telescope find_files]])
+        end
+      end,
+      desc = "Find files (Root Dir, git if possible)",
+    },
+  },
 }
